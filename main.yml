@@ -1,0 +1,35 @@
+name: Build React App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ./moodbeats/frontend
+        run: |
+          npm install
+
+      - name: Build React app
+        working-directory: ./moodbeats/frontend
+        run: |
+          npm run build
+
+      - name: Success message
+        run: echo "✅ React frontend build completed successfully!"
